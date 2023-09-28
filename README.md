@@ -43,18 +43,21 @@ Whether you have the MySQL community and Workbench or MySQL XAMPP installed, you
 
 ![MySQL Java Connector](/repo-img/mysql-connector.png)
 
-3- Unzip/extract the compressed downloaded folder. The only file that we need to attach to our project is "mysql-connector-j-8.0.33.jar". Notice that the version number might change depending on the available version when you download it. 
+3- Unzip/extract the compressed downloaded folder. The only file that we need to attach to our project is **"mysql-connector-j-8.0.33.jar"**. Notice that the version number might change depending on the available version when you download it. 
+
+### NOTE:
+By default this file will be inside the "Download" folder", but you can (should) copy it into the folder "lib" of your project for better and fast accessing.
 
 
 # Database Creation:
 For example, run XAMPP to launch the phpMyAdmin or MySQL Workbench to create your database, and one table at least.
 
-- Create a database "jdbc_test":
+- Create a database named "jdbc_test":
 ```sql
 CREATE DATABASE jdbc_test
 ```
 
-- Create a table "authors":
+- Create a table named "authors":
 ```sql
 CREATE TABLE authors (
 	author_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, -- Integer value with auto-increment 
@@ -84,17 +87,20 @@ values
 
 
 # Starting Your Project:
-- Open Visual Studio Code, and follow the normal steps for creating a new JAVA project (refer to my full PDF file).
-- From the VS Code Explorer, click "Java Projects" => Your-Project-Name: "java-jdbc-start" => "Referenced Libraries" => The "+" plus sign
-- Navigate to the folder that you have downloaded for the MySQL connecter/J and just select the JAR file "mysql-connector-j-x.x.x.jar"
-- The connection file wil lbe added to your current project library
+- Open Visual Studio Code, and follow the normal steps for creating a new JAVA project (refer to my full PDF file for more details and explanations).
+- From the VS Code Explorer:
+    - click **"Java Projects"** Tab => Select your project "java-jdbc-start"
+        - click the "+" plus sign of **"Referenced Libraries"**
+- Navigate to the folder (directory) where you downloaded the MySQL connecter/J. **(NOTE To Recap: By default this file will be inside the "Download" folder", but you can copy it into the folder "lib" of your project for better and fast accessing)**
+    - select the JAR file "mysql-connector-j-x.x.x.jar"
+- The connection file will be added to your current project library
 ![vscode-explorer](/repo-img/vscode-explorer.png)
 
 
 # Code Files:
-- The first file is "Driver.java" has the code for just testing the driver for "MySQL" if it's working or not
+1- The first file is "Driver.java" is just for testing the driver of "MySQL" if it's working or not
     - Refer to the code and the comment in the file "Driver.java"
-- The second file "App.java" has the code to connect to the database and run the query
+2- The second file "App.java" is to connect to the database and run a simple query
     - Refer to the code and the comment in the file "App.java"
 
 NOTE: The code in the first file can simply included in the second file to check the driver first, then connect and query the database.

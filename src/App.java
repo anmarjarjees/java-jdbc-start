@@ -5,6 +5,13 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
+/*
+ * NOTE:
+ * Don't forget to run your XAMPP Control Panel with MySQL Server to test the DB connection
+ * Otherwise, error:
+ * "The last packet sent successfully to the server was 0 milliseconds ago. 
+ * The driver has not received any packets from the server."
+ */
 public class App {
     public static void main(String[] args) throws Exception {
         /*
