@@ -12,7 +12,7 @@ Before starting with JDBC, the JDK, and Java Environmental variable must be inst
 
 
 # JDBC
-Java Database Connectivity (JDBC) is a Java standard that provides the interface for connecting from Java to relational databases. It's the API (Application Programming Interface) for establishing a connection between our Java project (application) and the database. 
+Java Database Connectivity (JDBC) is a Java standard interface that provides the interface for connecting from Java to any relational database. It's the API (Application Programming Interface) for establishing a connection between our Java project (application) and the database. 
 
 JDBC uses drivers to connect to the database, so there is a specific driver for each type of databases
 It's used to run the CRUD operation against different types of DBMS.
@@ -97,11 +97,14 @@ values
 ![vscode-explorer](/repo-img/vscode-explorer.png)
 
 
-# Code Files:
-1- The first file is "Driver.java" is just for testing the driver of "MySQL" if it's working or not
+# Code Files Sequence:
+- Java file1: "Driver.java" is just for testing the driver of "MySQL" if it's working or not
     - Refer to the code and the comment in the file "Driver.java"
-2- The second file "App.java" is to connect to the database and run a simple query
+- Java file2: "C1App.java" is to connect to the database and run a simple query "SELECT"
     - Refer to the code and the comment in the file "App.java"
+- Java file3: "C2App.java" is to connect to the database and run a simple query "INSERT"
+    - Refer to the code and the comment in the file "App.java"
+- The "db.sql" for creating the database with its table and some data.
 
 NOTE: The code in the first file can simply included in the second file to check the driver first, then connect and query the database.
 
