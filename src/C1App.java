@@ -35,7 +35,7 @@ public class C1App {
          */
         final String DATABASE_URL = "jdbc:mysql://localhost:3306/jdbc_test";
         final String USER = "root";
-        final String PASS = "";
+        final String PASSWORD = "";
 
         // TASK: Selecting all records from a table
 
@@ -60,7 +60,7 @@ public class C1App {
         // Then using try-with-resources to connect to and query the database
         try {
             // Getting a connection to our Database by using "DriverManager" for any DB:
-            connection = DriverManager.getConnection(DATABASE_URL, USER, PASS);
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
             // Creating the statement object (for C, R, U, or D)
             Statement statement = connection.createStatement();
@@ -69,6 +69,7 @@ public class C1App {
             ResultSet resultSet = statement.executeQuery(QUERY);
 
             System.out.println("The first way:");
+            
             // Extract data from result set:
             while (resultSet.next()) {
                 System.out.println("ID: " + resultSet.getString("author_id"));
@@ -76,6 +77,9 @@ public class C1App {
                 System.out.println("Last Name: " + resultSet.getString("last_name"));
                 System.out.println("Phone: " + resultSet.getString("phone"));
                 System.out.println("Email: " + resultSet.getString("email"));
+                /*
+                 * .getInt(), .getDouble(), and so on...
+                 */
             }
 
             /*
@@ -117,17 +121,17 @@ public class C1App {
                 // printing the allRecords String container
                 System.out.println(allRecords);
             }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
             System.err.println("Failed to select data!");
         } finally {
             /*
              * NOTE:
              * It's always a good coding practice to close our connection with the database
-             * when we are done
+             * when we are done.
+             * We can also use try with recourses
              */
             connection.close();
         }
-
     } // main()
 } // class

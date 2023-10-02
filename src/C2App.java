@@ -1,15 +1,14 @@
 import java.sql.Connection;
-import java.sql.Statement;
 import java.sql.DriverManager; // The basic service for managing a set of JDBC drivers.
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class C2App {
 
     public static void main(String[] args) throws SQLException {
         final String DATABASE_URL = "jdbc:mysql://localhost:3306/jdbc_test";
         final String USER = "root";
-        final String PASS = "";
+        final String PASSWORD = "";
 
         // TASK: Inserting a new record to a table
 
@@ -22,68 +21,68 @@ public class C2App {
         String city = "Toronto";
         String province = "ON";
 
+        // Basic Solution (Without prepared statement):
         /*
          * The pure SQL query:
+         * *******************
          * INSERT INTO authors (first_name, last_name, email, phone, city, province)
          * VALUES ('John','Doe','john.doe@jdbcdemo.ca','4161112222','Toronto','ON');
-         * 
-         * As we do with PHP, we will use the prepared statement :-)
-         * Sometimes it is more convenient to use a "PreparedStatement" object
-         * Link:
-         * https://docs.oracle.com/javase/8/docs/api/java/sql/PreparedStatement.html
-         * 
-         * Link:
-         * https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html
-         * 
-         * public interface "PreparedStatement"
          */
 
-        final String QUERY = "INSERT INTO authors(first_name, last_name, email, phone, city, province) VALUES(?,?,?,?,?,?);";
+        // Hard Coding:
+        String query_example = "INSERT INTO authors (first_name, last_name, email, phone, city, province) VALUES ('Sarah','Grand','sarah.grand@trying.ca','4161119999','Markham','ON')";
 
-        // We can use try-catch blocks from "Driver.java" to test the driver first
-        // Then using try-with-resources to connect to and query the database
+        // Test:
+        System.out.println("The hard coding string: \n" + query_example);
+
+        // PASSWORDing Variables:
+
+        // Concatenation: notice that we use ' ' to surround the fields value
+        // as we do in a simple SQL statement
+        /*
+         * Bad way to passing the data directly to the database!
+         * Some may try to attack/hack the database base by passing a malicious code
+         * instead of real info!
+         * we will use "Prepared statement" in the coming code examples
+         */
+        String query = "INSERT INTO authors (first_name, last_name, email, phone, city, province) VALUES ('" + name1
+                + "','" + name2 + "','" + email + "','" + phone + "','" + city + "','" + province + "')";
+
+        // Test:
+        System.out.println("The second query string: \n" + query);
+
+        /*
+         * Using String Template with the constant "STR"
+         */
+        // String query = "INSERT INTO authors (first_name, last_name, email, phone,
+        // city, province) VALUES ('${name1}','${name2}')";
+
+        // String query = STR.
+
+        // Try/catch() for Solution#1:
         try (
-                Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASS);
-                PreparedStatement insertPStmt = connection.prepareStatement(QUERY);) {
+                // Getting a connection to our Database by using "DriverManager" for any DB:
+                Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
-            insertPStmt.setString(1, name1);
-            insertPStmt.setString(2, name2);
-            insertPStmt.setString(3, email);
-            insertPStmt.setString(4, phone);
-            insertPStmt.setString(5, city);
-            insertPStmt.setString(6, province);
-            /*
-             * NOTE:
-             * we also have .setInt() for integers, .setDouble() for decimals, and so on...
-             */
+                // Creating the statement object (for C, R, U, or D)
+                Statement statement = connection.createStatement();) {
 
             // Execute the query
+            statement.executeUpdate(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Failed to insert data! " + e.getMessage());
             /*
-             * NOTES:
-             * - With Update or Delete operation,
-             * we use the method "executeUpdate" instead of "executeQuery"
+             * NOTE:
+             * When we enter same (existing) value for a table column/field
+             * that has be unique,
+             * For example insert the same email "smith.s@trying.ca"
+             * and the "email" field has the unique constraint,
+             * Java will throw this exception:
+             * "java.sql.SQLIntegrityConstraintViolationException: Duplicate entry 'smith.s@trying.ca' for key 'email'"
              * 
-             * - executeUpdate() returns:
-             * > either (1) the row count for SQL Data Manipulation Language (DML)
-             * statements
-             * > or (2) 0 for SQL statements that return nothing
-             * 
-             * - executeUpdate(): throws SQLException
+             * So the Exception class name is "SQLIntegrityConstraintViolationException"
              */
-            int rowCount = insertPStmt.executeUpdate(QUERY);
-
-            /*
-             * We can build our condition according to the value of 1 for true update/delete
-             */
-            if (rowCount == 1) {
-                System.out.println("1 row has been inserted");
-            } else {
-                System.out.println("O rows affected, insertion operation failed!");
-            }
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
-            System.err.println("Failed to insert a record!");
-            System.err.println("Your SQL Statement: \n" + QUERY);
         }
     } // main()
 } // class
