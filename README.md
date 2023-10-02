@@ -98,12 +98,10 @@ values
 
 
 # Code Files Sequence:
-- Java file1: "Driver.java" is just for testing the driver of "MySQL" if it's working or not
-    - Refer to the code and the comment in the file "Driver.java"
-- Java file2: "C1App.java" is to connect to the database and run a simple query "SELECT"
-    - Refer to the code and the comment in the file "App.java"
-- Java file3: "C2App.java" is to connect to the database and run a simple query "INSERT"
-    - Refer to the code and the comment in the file "App.java"
+- Java file: "Driver.java" is just for testing the driver of "MySQL" if it's working or not
+- Java file: "C1App.java" is to connect to the database and run a simple query "SELECT"
+- Java file: "C2App.java" is to connect to the database and run a simple query "INSERT"
+- Java file: "C3App.java" => Insert with prepared statement
 - The "db.sql" for creating the database with its table and some data.
 
 NOTE: The code in the first file can simply included in the second file to check the driver first, then connect and query the database.
