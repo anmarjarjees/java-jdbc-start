@@ -12,7 +12,7 @@ import java.sql.SQLException;
  * "The last packet sent successfully to the server was 0 milliseconds ago. 
  * The driver has not received any packets from the server."
  */
-public class C1App {
+public class C1Read {
     /*
      * NOTE:
      * The statement "throws SQLException" is not needed!
@@ -34,8 +34,8 @@ public class C1App {
          * > Database Name: "jdbc_test"
          */
         final String DATABASE_URL = "jdbc:mysql://localhost:3306/jdbc_test";
-        final String USER = "root";
-        final String PASSWORD = "";
+        final String USER = "root"; // the default username for XAMPP
+        final String PASSWORD = ""; // the default password for XAMPP
 
         // TASK: Selecting all records from a table
 

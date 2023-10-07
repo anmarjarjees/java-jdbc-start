@@ -3,7 +3,7 @@ import java.sql.DriverManager; // The basic service for managing a set of JDBC d
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class C2App {
+public class C2InsertBssic {
 
     public static void main(String[] args) throws SQLException {
         final String DATABASE_URL = "jdbc:mysql://localhost:3306/jdbc_test";
@@ -23,13 +23,13 @@ public class C2App {
 
         // Basic Solution (Without prepared statement):
         /*
-         * The pure SQL query:
-         * *******************
+         * The pure SQL query statement:
+         * *****************************
          * INSERT INTO authors (first_name, last_name, email, phone, city, province)
          * VALUES ('John','Doe','john.doe@jdbcdemo.ca','4161112222','Toronto','ON');
          */
 
-        // Hard Coding:
+        // Hard Coding :-(
         String query_example = "INSERT INTO authors (first_name, last_name, email, phone, city, province) VALUES ('Sarah','Grand','sarah.grand@trying.ca','4161119999','Markham','ON')";
 
         // Test:
@@ -41,8 +41,8 @@ public class C2App {
         // as we do in a simple SQL statement
         /*
          * Bad way to passing the data directly to the database!
-         * Some may try to attack/hack the database base by passing a malicious code
-         * instead of real info!
+         * Some may try to attack/hack the database
+         * by passing a malicious code instead of real info!
          * we will use "Prepared statement" in the coming code examples
          */
         String query = "INSERT INTO authors (first_name, last_name, email, phone, city, province) VALUES ('" + name1
@@ -57,25 +57,34 @@ public class C2App {
         // String query = "INSERT INTO authors (first_name, last_name, email, phone,
         // city, province) VALUES ('${name1}','${name2}')";
 
-        // String query = STR.
+        /*
+         * NOTE:
+         * Globally declare the connection string and the prepares statement objects,
+         * so we can close them inside the "finally" block
+         */
+        Connection connection = null;
+        Statement statement = null;
 
-        // Try/catch() for Solution#1:
-        try (
-                // Getting a connection to our Database by using "DriverManager" for any DB:
-                Connection connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
+        // Using try/catch() with finally to close: connection & prepared statement
+        // In the next example, we use Try/catch() with resources to close the
+        // connection after done
+        try {
 
-                // Creating the statement object (for C, R, U, or D)
-                Statement statement = connection.createStatement();) {
+            // Getting a connection to our Database by using "DriverManager" for any DB:
+            connection = DriverManager.getConnection(DATABASE_URL, USER, PASSWORD);
 
-            // Execute the query
+            // Creating the statement object (for C, R, U, or D)
+            statement = connection.createStatement();
+
+            // Execute the prepared statement => .executeUpdate()
             statement.executeUpdate(query);
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("Failed to insert data! " + e.getMessage());
             /*
              * NOTE:
-             * When we enter same (existing) value for a table column/field
-             * that has be unique,
+             * Regarding enter same (existing) value for a table column/field
+             * that has to be unique,
              * For example insert the same email "smith.s@trying.ca"
              * and the "email" field has the unique constraint,
              * Java will throw this exception:
@@ -83,6 +92,29 @@ public class C2App {
              * 
              * So the Exception class name is "SQLIntegrityConstraintViolationException"
              */
+        } finally {
+            /*
+             * NOTE:
+             * Calling the close() method on these two object
+             * will throw a "Checked Exception":
+             * 
+             * Both closing statements below will show:
+             * "Unhandled exception type SQLException"
+             * 
+             * Because: Calling the method close on a Connection object
+             * that is already closed is a no-op.
+             * 
+             * Throws: SQLException - if a database access error occurs
+             * 
+             * Solutions according to "Quick Fix":
+             * 1) Surrounding the two close() method with try and catch()
+             * => [Too much nested blocks!]
+             * 
+             * 2) Just let the main() method throws "SQLException"
+             * => [Better concise solution]
+             */
+            connection.close();
+            statement.close();
         }
     } // main()
-} // class
+} // class file

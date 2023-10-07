@@ -35,15 +35,16 @@ Below is the datatype list for the most commonly used in SQL and Java:
 
 
 # Database Tools Preparation:
-Whether you have the MySQL community and Workbench or MySQL XAMPP installed, you need to download the **MySQL Java Connector" as we do with Python when we download the MySQL Python Connector.
+Whether you have the MySQL community and Workbench or MySQL XAMPP installed, you need to download the **MySQL Java Connector" as we do with Python when we download the MySQL Python Connector. This connector is used to connect our Java application to the Database.
 
+## Download "Connector/J" for Java
 1. Go to [*"MySQL connector"**](https://dev.mysql.com/downloads/connector/j/). You can search for "Java mysql connector" to get into this official page from oracle, or any other trusted third-party website like "Maven" then just download the ".JAR" file which stands for ["Java ARchive"](https://docs.oracle.com/javase/8/docs/technotes/guides/jar/jarGuide.html).
 
 2- For just downloading the simple and independent file, you can select "Platform Independent":
 
 ![MySQL Java Connector](/repo-img/mysql-connector.png)
 
-3- Unzip/extract the compressed downloaded folder. The only file that we need to attach to our project is **"mysql-connector-j-8.0.33.jar"**. Notice that the version number might change depending on the available version when you download it. 
+3- Unzip/extract the compressed downloaded folder. The only file that we need to attach to our project is **"mysql-connector-j-8.0.33.jar"**. Notice that the version number might change depending on the recent available version when you download it. 
 
 ### NOTE:
 By default this file will be inside the "Download" folder", but you can (should) copy it into the folder "lib" of your project for better and fast accessing.
@@ -85,16 +86,17 @@ values
 ('Susan', 'Clark', 'susanclarck@storyclub.ca', '4161231238','Toronto',now());
 ```
 
-
 # Starting Your Project:
 - Open Visual Studio Code, and follow the normal steps for creating a new JAVA project (refer to my full PDF file for more details and explanations).
 - From the VS Code Explorer:
-    - click **"Java Projects"** Tab => Select your project "java-jdbc-start"
+    - click **"Java Projects"** Tab => Select your project, for example the current one is: "java-jdbc-start"
         - click the "+" plus sign of **"Referenced Libraries"**
 - Navigate to the folder (directory) where you downloaded the MySQL connecter/J. **(NOTE To Recap: By default this file will be inside the "Download" folder", but you can copy it into the folder "lib" of your project for better and fast accessing)**
     - select the JAR file "mysql-connector-j-x.x.x.jar"
 - The connection file will be added to your current project library
 ![vscode-explorer](/repo-img/vscode-explorer.png)
+
+In case, you are using IntelliJ IDEA, the folder name is "Libraries" By making Right Click and select "Add JAR Folder" and search for the downloaded file.
 
 
 # Code Files Sequence:
